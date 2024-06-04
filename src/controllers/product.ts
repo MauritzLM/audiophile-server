@@ -1,5 +1,86 @@
 import * as db from "../db"
+
 // product controller
-export const getProduct = async function (request: any, res: any, next: any) {
-    // get one product from db
-}
+
+// get a product
+export const getProduct = async function (req: any, res: any, next: any) {
+    try {
+        const { name } = req.params;
+
+        // replace _ with spaces
+        const regex = /_/g;
+        const nameFormatted = name.replace(regex, " ");
+
+        console.log(nameFormatted)
+        // get product using name
+        const text = 'SELECT * FROM products WHERE name = $1';
+        const values = [nameFormatted];
+
+        const result = await db.query(text, values);
+
+        const product = result.rows[0];
+
+        // no product
+        if (!product) {
+            res.send("No product found");
+            return;
+        };
+
+        // respond with result
+        res.json(product);
+    }
+
+    catch (error) {
+        return next(error)
+    }
+};
+
+// get a category
+export const getCategory = async function (req: any, res: any, next: any) {
+    try {
+        const { name } = req.params;
+
+        // get category using name
+        const text = 'SELECT * FROM products WHERE category = $1';
+        const values = [name];
+
+        const result = await db.query(text, values);
+
+        const allProducts = result.rows[0];
+
+        if (!allProducts) {
+            res.send("No products found")
+            return;
+        }
+
+        res.json(allProducts);
+
+    }
+    catch (error) {
+        return next(error);
+    }
+};
+
+// get featured products
+export const getFeatured = async function (req: any, res: any, next: any) {
+    try {
+
+        const text = 'SELECT * FROM products WHERE featured = $1';
+        const values = [true];
+
+        const result = await db.query(text, values);
+
+        const allFeatured = result.rows[0];
+
+        if (!allFeatured) {
+            res.send("No featured products found")
+            return;
+        }
+
+        res.json(allFeatured);
+
+    }
+    catch (error) {
+        return next(error);
+    }
+};
