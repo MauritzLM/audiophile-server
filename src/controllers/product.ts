@@ -46,7 +46,7 @@ export const getCategory = async function (req: any, res: any, next: any) {
 
         const result = await db.query(text, values);
 
-        const allProducts = result.rows[0];
+        const allProducts = result.rows;
 
         if (!allProducts) {
             res.send("No products found")
@@ -70,7 +70,7 @@ export const getFeatured = async function (req: any, res: any, next: any) {
 
         const result = await db.query(text, values);
 
-        const allFeatured = result.rows[0];
+        const allFeatured = result.rows;
 
         if (!allFeatured) {
             res.send("No featured products found")
