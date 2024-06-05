@@ -15,7 +15,7 @@ router.get("/featured", getFeatured);
 // session routes
 router.post("/session-new", createSession);
 
-router.post("/resume", resumeSession);
+router.post("/session-resume", resumeSession);
 
 router.post("/session-update", updateSession);
 
