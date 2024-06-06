@@ -49,7 +49,7 @@ export const updateSession = async function (req: any, res: any, next: any) {
         // convert object to json
         let cart_to_json = JSON.stringify(cart);
 
-        // update cart contents in session*
+        // update cart contents in session
         const text = 'UPDATE session SET cart = $1 WHERE id = $2';
         const values = [cart_to_json, id];
 
@@ -68,7 +68,13 @@ export const endSession = async function (req: any, res: any, next: any) {
     try {
         const { id } = req.body;
 
-        // delete row from table*
+        // delete row from table using id
+        const text = 'DELETE FROM session WHERE id = $1';
+        const values = [id];
+
+        const result = await db.query(text, values);
+
+        res.json("session deleted");
 
     }
     catch (error) {
