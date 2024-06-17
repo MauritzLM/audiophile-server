@@ -48,12 +48,15 @@ export const getCategory = async function (req: any, res: any, next: any) {
 
         const allProducts = result.rows;
 
+        // sort array by new
+        const sortedProducts = allProducts.sort((a, b) => b.new - a.new);
+
         if (!allProducts) {
             res.send("No products found")
             return;
         }
 
-        res.json(allProducts);
+        res.json(sortedProducts);
 
     }
     catch (error) {

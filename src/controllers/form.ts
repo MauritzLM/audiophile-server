@@ -4,9 +4,6 @@ import { body, validationResult } from "express-validator"
 
 export const paymentFormSubmit = [
     // validation chain
-    // 1. name, email, phone number
-    // 2. address, zip code, city, country
-    // 3. e-money number, e-money pin
     body("name", "please enter your name")
         .trim()
         .notEmpty()
@@ -23,7 +20,7 @@ export const paymentFormSubmit = [
         .trim()
         .isAlphanumeric()
         .escape(),
-    body("zipcode", "please enter your zip code")
+    body("zipCode", "please enter your zip code")
         .trim()
         .isPostalCode("any")
         .withMessage("invalid zip code")
