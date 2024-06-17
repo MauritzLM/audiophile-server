@@ -8,25 +8,20 @@ export const paymentFormSubmit = [
     // 2. address, zip code, city, country
     // 3. e-money number, e-money pin
     body("name", "please enter your name")
-        .notEmpty()
         .trim()
-        .escape(),
-    body("email", "please enter your email")
         .notEmpty()
+        .escape(),
+    body("email", "wrong format")
         .trim()
         .isEmail()
-        .withMessage("wrong format")
         .escape(),
     body("phone", "please enter your phone number")
-        .notEmpty()
         .trim()
         .isNumeric()
         .escape(),
     body("address", "please enter your delivery address")
-        .notEmpty()
         .trim()
         .isAlphanumeric()
-        .withMessage("please enter a valid address")
         .escape(),
     body("zipcode", "please enter your zip code")
         .trim()
