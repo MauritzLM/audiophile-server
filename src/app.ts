@@ -1,6 +1,7 @@
 // express, app, cors, routes, bodyparser
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 
 const app: Express = express();
 
@@ -16,10 +17,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Enable the use of request body parsing middleware
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({
-//   extended: true
-// }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 app.use(express.json());
 
