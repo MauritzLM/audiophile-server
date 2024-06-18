@@ -33,6 +33,19 @@ export const paymentFormSubmit = [
         .trim()
         .notEmpty()
         .escape(),
+    body("eMoneyNum", "invalid number")
+        .if((value, { req }) => req.body.paymentMethod === "e-money")
+        // add function here to validate e-money details   
+        .isNumeric()
+        .isLength({ min: 9, max: 9 })
+        .trim()
+        .escape(),
+    body("eMoneyPin", "invalid pin")
+        .if((value, { req }) => req.body.paymentMethod === "e-money")
+        .isNumeric()
+        .isLength({ min: 4, max: 4 })
+        .trim()
+        .escape(),
     async function (req: any, res: any, next: any) {
         try {
 
