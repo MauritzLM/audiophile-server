@@ -12,18 +12,27 @@ export const paymentFormSubmit = [
         .trim()
         .isEmail()
         .escape(),
-    body("phone", "please enter your phone number")
+    body("phone", "please enter a valid phone number")
         .trim()
-        .isNumeric()
+        .custom((value, { req }) => {
+            // regex pattern for phone number
+            const regex = new RegExp(/\+?\d{1,2}\s\d{3}-\d{3}-\d{3}/);
+
+            return regex.test(value);
+        })
         .escape(),
-    body("address", "please enter your delivery address")
+    body("address", "please enter a valid delivery address")
         .trim()
-        .isAlphanumeric()
+        .custom((value, { req }) => {
+            // regex pattern for address
+            const regex = new RegExp(/\d{1,4}\s\w+\s\w+/)
+
+            return regex.test(value);
+        })
         .escape(),
     body("zipCode", "please enter your zip code")
         .trim()
         .isPostalCode("any")
-        .withMessage("invalid zip code")
         .escape(),
     body("city", "please enter your city name")
         .trim()
@@ -36,13 +45,11 @@ export const paymentFormSubmit = [
     body("eMoneyNum", "invalid number")
         .if((value, { req }) => req.body.paymentMethod === "e-money")
         // add function here to validate e-money details   
-        .isNumeric()
         .isLength({ min: 9, max: 9 })
         .trim()
         .escape(),
     body("eMoneyPin", "invalid pin")
         .if((value, { req }) => req.body.paymentMethod === "e-money")
-        .isNumeric()
         .isLength({ min: 4, max: 4 })
         .trim()
         .escape(),
@@ -58,7 +65,10 @@ export const paymentFormSubmit = [
             }
 
             // no errors
+            // clear session*
+
             res.json("payment confirmed");
+
         }
         catch (error) {
             return next(error);
