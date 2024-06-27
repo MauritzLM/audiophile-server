@@ -80,7 +80,8 @@ export const getFeatured = async function (req: any, res: any, next: any) {
             return;
         }
 
-        res.json(allFeatured);
+        // return reversed array - (optional)
+        res.json(allFeatured.reverse());
 
     }
     catch (error) {
