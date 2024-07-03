@@ -12,7 +12,7 @@ export const paymentFormSubmit = [
         .trim()
         .isEmail()
         .escape(),
-    body("phone", "please enter a valid phone number")
+    body("phone", "invalid phone number")
         .trim()
         .custom((value, { req }) => {
             // regex pattern for phone number
@@ -21,7 +21,7 @@ export const paymentFormSubmit = [
             return regex.test(value);
         })
         .escape(),
-    body("address", "please enter a valid delivery address")
+    body("address", "invalid delivery address")
         .trim()
         .custom((value, { req }) => {
             // regex pattern for address
@@ -30,15 +30,15 @@ export const paymentFormSubmit = [
             return regex.test(value);
         })
         .escape(),
-    body("zipCode", "please enter your zip code")
+    body("zipCode", "invalid zip code")
         .trim()
         .isPostalCode("any")
         .escape(),
-    body("city", "please enter your city name")
+    body("city", "please enter your city")
         .trim()
         .notEmpty()
         .escape(),
-    body("country", "please enter your country name")
+    body("country", "please enter your country")
         .trim()
         .notEmpty()
         .escape(),
