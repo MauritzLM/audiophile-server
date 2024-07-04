@@ -8,12 +8,12 @@ export const getProduct = async function (req: any, res: any, next: any) {
         const { name } = req.params;
 
         // replace _ with spaces
-        // const regex = /_/g;
-        // const nameFormatted = name.replace(regex, " ");
+         const regex = /_/g;
+         const nameFormatted = name.replace(regex, " ");
 
-        // console.log(nameFormatted)
+        // console.log(name)
         // get product using name
-        const text = 'SELECT * FROM products WHERE slug = $1';
+        const text = 'SELECT * FROM products WHERE name = $1';
         const values = [name];
 
         const result = await db.query(text, values);
@@ -22,7 +22,7 @@ export const getProduct = async function (req: any, res: any, next: any) {
 
         // no product
         if (!product) {
-            res.send("No product found");
+            res.json({name});
             return;
         };
 
