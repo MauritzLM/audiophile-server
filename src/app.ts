@@ -10,7 +10,7 @@ import cors from 'cors';
 // bodyparser
 
 const corsOptions = {
-    origin: 'https://audiophile-website-gamma.vercel.app/',
+    origin: 'https://audiophile-website-gamma.vercel.app',
     optionsSuccessStatus: 200
 }
 
