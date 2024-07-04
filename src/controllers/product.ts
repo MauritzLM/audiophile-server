@@ -8,8 +8,8 @@ export const getProduct = async function (req: any, res: any, next: any) {
         const { name } = req.params;
 
         // replace _ with spaces
-         const regex = /_/g;
-         const nameFormatted = name.replace(regex, " ");
+        const regex = /_/g;
+        const nameFormatted = name.replace(regex, " ");
 
         // console.log(name)
         // get product using name
@@ -22,7 +22,7 @@ export const getProduct = async function (req: any, res: any, next: any) {
 
         // no product
         if (!product) {
-            res.json({name});
+            res.json({ error: "no product found" });
             return;
         };
 
