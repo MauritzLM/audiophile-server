@@ -7,13 +7,8 @@ export const getProduct = async function (req: any, res: any, next: any) {
     try {
         const { name } = req.params;
 
-        // replace _ with spaces
-        const regex = /_/g;
-        const nameFormatted = name.replace(regex, " ");
-
-        // console.log(name)
-        // get product using name
-        const text = 'SELECT * FROM products WHERE name = $1';
+        // get product using name from params
+        const text = 'SELECT * FROM products WHERE slug = $1';
         const values = [name];
 
         const result = await db.query(text, values);
@@ -75,13 +70,15 @@ export const getFeatured = async function (req: any, res: any, next: any) {
 
         const allFeatured = result.rows;
 
+        const sortedProducts = allFeatured.sort((a, b) => b.id - a.id);
+
         if (!allFeatured) {
             res.send("No featured products found")
             return;
         }
 
         // return reversed array - (optional)
-        res.json(allFeatured.reverse());
+        res.json(sortedProducts);
 
     }
     catch (error) {
