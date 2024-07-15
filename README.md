@@ -3,4 +3,6 @@
 ## includes 
 
 - postgresql database
-- session management
+- functions to get a product, category and featured products
+- form validation
+- hosted on [railway](railway.app)
